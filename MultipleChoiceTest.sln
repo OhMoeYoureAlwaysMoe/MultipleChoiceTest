@@ -1,25 +1,212 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30804.86
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultipleChoiceTest", "MultipleChoiceTest\MultipleChoiceTest.csproj", "{244109D6-F40C-4068-8FA9-949A34DF985E}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{244109D6-F40C-4068-8FA9-949A34DF985E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{244109D6-F40C-4068-8FA9-949A34DF985E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{244109D6-F40C-4068-8FA9-949A34DF985E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{244109D6-F40C-4068-8FA9-949A34DF985E}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {9EA85ECF-3B86-4AA9-947B-5D17456027F9}
-	EndGlobalSection
-EndGlobal
+using System;
+amespace MultipleChoiceTest
+{
+    class MultipleChoiceTest
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Multiple Choice Test");
+            Console.WriteLine("Written by Amanda Branton");
+            Console.WriteLine("Press Enter to continue");
+            Console.ReadLine();
+
+            Console.WriteLine("Given: ");         //Given information needed to complete the quiz//
+            Console.WriteLine("x = 6");
+            Console.WriteLine("y = 3");
+            Console.WriteLine("z = y + x");
+            Console.WriteLine("Press Enter to begin the quiz");
+            Console.ReadLine();
+
+            Test p = new Test();       //Creating an object for my class MultipleChoiceTest. 
+            Console.WriteLine("Score is {0}%", p.theTest());       //After the Test program is complete, the scoreCard variable will return the score back to the static main program
+            Console.ReadKey();
+
+
+
+
+        }
+
+        class Test         //class for my test. 
+
+        {
+
+            public string theQuestions(int i)       //This attribute returns the question to the Test program 
+            {
+                string[] aQuestions =        //The array condenses all the questioins into one attribute
+                {
+                    "1) True or False:  x > y   :  ",
+                    "2) True or False: z - y = x  : ",
+                    "3) Select the correct answer to the statement:  x + y =  ",
+                    "4) Select the correct answer to the statement:  x + z =  ",
+
+            };
+
+                return aQuestions[i];
+
+            }
+
+            public string theAnswers(int i)     //theAnswer attribute defines the answer selection associtated with the question
+            {
+                string[] aAnswers =             //The array allows aAnswer condenses all the questioins into one attribute
+                {
+                    "Type 't' for True or \n'f' for False ",
+                    "Type 't' for True or \n'f' for False ",
+                    "a. 9    \nb. 3    \nc. 12    \nd. none of the above",
+                    "\na. 9    \nb. 3      c. 12    \nd. none of the above",
+
+            };
+
+                return aAnswers[i];
+            }
+
+            public string theCorrectAnswers(int i)     //Attribute defines the correct answers
+            {
+                string[] aCorrectAnswers =
+                {
+                    "t",
+                    "t",
+                    "a",
+                    "c",
+
+            };
+
+                return aCorrectAnswers[i];
+
+            }
+
+            public Boolean validateInput(string answer, string aCorrectAnswer)      //the attribute is a boolean, which validates the input: if an answer is a,b,c,d,t, or f, it is valid
+            {
+                if (answer.Equals("t") || answer.Equals("f") || answer.Equals("a") || answer.Equals("b") || answer.Equals("c") || answer.Equals("d"))
+                {
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine("\n Invalid Answer. This Question has been marked incorrect \n");     //If an answer is not a,b,c,d,t, or f, an error code will pop and the user can try again without using an attempt
+                    Console.WriteLine("\n To continue the Quiz, confirm that you know the valid responses by typing one of the valid responses: a, b, c, d, t, f\n");
+                    return false;
+
+                }
+            }
+
+            public int theTest()      //public int allows the program to return informatioin to my Class MultipleChoiceTest object p.theTest
+            {
+                int scoreCard = 0;    // Variable used to display the number of correct/incorrect answers after the second attempt.
+
+                bool questionsIncorrect1 = false;      //The boolean variables are used to keep track of the correct/incorrect answers for the first attempt and the incorrect questions will be recalled on the second attempt
+                bool questionsIncorrect2 = false;
+                bool questionsIncorrect3 = false;
+                bool questionsIncorrect4 = false;
+
+                Console.WriteLine();
+                int j = -1;                //j variable is to keep track of the attempts
+                string check;             //checks the answer input
+
+                Console.WriteLine("Test");
+                Console.WriteLine("Attempt 1 of 2");
+
+                for (int i = 0; i <= 3; i++)     //the for loop allows me to recall the questions and answers in order from 0-3
+                {
+                    System.Console.WriteLine("{0}", theQuestions(i));
+                    System.Console.WriteLine("{0}", theAnswers(i));
+
+                    check = Console.ReadLine();
+
+                    Console.WriteLine();
+                    if (check.Equals(theCorrectAnswers(i)))   //check varible checks the getCorrectAnswer variable and stores the incorrect question and answer
+                    {
+                        scoreCard = scoreCard + 25;   //If the answer is correct +25 is added to the scoreCard
+                    }
+                    else     //If the answer is incorrect, the answer accounted for in questionsIncorrect variable
+                    {
+                        j++;   //j++ gives the user another chance to if their first attempt is wrong
+                        if (i == 0)
+                        {
+                            questionsIncorrect1 = true;
+                        }
+                        else if (i == 1)
+                        {
+                            questionsIncorrect2 = true;
+                        }
+                        else if (i == 2)
+                        {
+                            questionsIncorrect3 = true;
+                        }
+                        else if (i == 3)
+                        {
+                            questionsIncorrect4 = true;
+                        }
+
+                    }
+
+                    while (validateInput(check, theCorrectAnswers(i)) == false)     //This command validates the answer, and each answer input will be ran through the while loop. If the answer is invalid an error will be displayed
+                    {
+
+                        check = Console.ReadLine();     //check is the variable that stores the incorrect answers
+
+                    }
+
+                }
+
+                int k = 0;   //variable k is used to recall the incorrect test questions from the previous for loop
+                             
+                while (j > -1)    //variable j > -1 allows only one more attempt for the incorrect test questions
+                {
+                    Console.WriteLine("Attempt 2 of 2");
+
+                    if (questionsIncorrect1)    //Statement recalls the incorrect questions from the attempt no. 1
+                    {
+                        k = 0;
+                        questionsIncorrect1 = false;
+                    }
+                    else if (questionsIncorrect2)
+                    {
+                        k = 1;
+                        questionsIncorrect2 = false;
+                    }
+                    else if (questionsIncorrect3)
+                    {
+                        k = 2;
+                        questionsIncorrect3 = false;
+                    }
+                    else if (questionsIncorrect4)
+                    {
+                        k = 3;
+                        questionsIncorrect4 = false;
+                    }
+
+                    System.Console.WriteLine("{0}", theQuestions(k));     //theQuestion(k) recalls the question that is associated with the stored incorrect questions from attempt no 1
+                    System.Console.WriteLine("{0}", theAnswers(k));       //theAnswer(k) recalls the t/f or multiple choice answers that are associated with the stored incorrect questions from attempt no 1
+                    System.Console.WriteLine("Enter the answer : ");     //this allows for user input
+                    check = Console.ReadLine();    //this variable checks the input and stores the wrong answer
+
+                    Console.WriteLine();
+
+                    if (check.Equals(theCorrectAnswers(k))) 
+                    {
+
+                        scoreCard = scoreCard + 25;    //If the second attempt is correct, +25 is added to the overall score
+                    }
+                    else
+                    {
+                        System.Console.WriteLine("That is incorrect");  //If the second attempt is incorrect, "That is incorrect" is displayed on the console
+
+                        System.Console.WriteLine("The correct answer is " + theCorrectAnswers(k));  //The correst answer is shown
+                        System.Console.WriteLine();
+                    }
+
+                    while (validateInput(check, theCorrectAnswers(k)) == false)     //This command validates the answer, and each answer input will be ran through the while loop. If the answer is invalid an error will be displayed
+                    {
+                        check = Console.ReadLine();   //The check variable checks the user input for validity and stores the incorrect answer 
+                    }
+
+                    j--;      //takes one attempt away assuring that the loop ends after attempt no 2 has completed one loop
+                }
+
+                return scoreCard;   //Returns the score collected from the scoreCard variable and sends the score back to the main program. The score is then dispayed on the console
+            }
+        }
+
+
+    }
+}
